@@ -232,7 +232,8 @@ En este caso no se necesita calcular de nuevo PRIMERO y SIGUIENTE, pues estos so
 
 Reglas para crear la tabla M
 
-
+1. Para cada producción A → α: agrega A → α en M[A, t] para todo terminal t en PRIMERO(α)
+2. Si ε ∈ PRIMERO(α): agrega A → α en M[A, t] para todo t en SIGUIENTE(A)
 
 
 ## Tabla M — LL(1)
