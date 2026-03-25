@@ -24,6 +24,7 @@ Actividad Análisis Sintáctico
    No terminales: E'', E, E', T, T', F
 
    SLR
+   
    Como primer paso, obtenemos la gramática aumentada.
    E'' → E
    E → T E'
@@ -227,6 +228,24 @@ Actividad Análisis Sintáctico
 
 LL
 
+En este caso no se necesita calcular de nuevo PRIMERO y SIGUIENTE, pues estos son los mismo calculados para SLR, lo único a tener en cuenta es que se ignora PRIMERO(E'') y SIGUIENTE(E''), pues E'' solo existe para SLR que necesita de una gramática aumentada.
+
+Reglas para crear la tabla M
+
+
+
+
+## Tabla M — LL(1)
+
+| NT \ Terminal | id | num | pari | pard | opsuma | opmul | $ |
+|---------------|-----|-----|------|------|--------|-------|---|
+| E  | E → T E' | E → T E' | E → T E' | — | — | — | — |
+| E' | — | — | — | E' → ε | E' → opsuma T E' | — | E' → ε |
+| T  | T → F T' | T → F T' | T → F T' | — | — | — | — |
+| T' | — | — | — | T' → ε | T' → ε | T' → opmul F T' | T' → ε |
+| F  | F → id | F → num | F → pari E pard | — | — | — | — |
+
+> **—** = error sintáctico
       
    
 5. Asociatividad y precedencia, realizando modificaciones a una gramática aritmética para hacer asociatividad por derecha, por izquierda, tener la precedencia de operadores definida matemáticamente y el orden inverso, realizar dos pruebas y comparar los resultados obtenidos con la misma cadena en cada una de las versiones de la gramática
