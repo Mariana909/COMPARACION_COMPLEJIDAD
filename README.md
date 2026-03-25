@@ -74,7 +74,142 @@ Actividad Análisis Sintáctico
 
       SIGUIENTE(F) = {opmul, opsuma, $, pard}
 
+
+      LR(0) y Autómata
+
+      ESTADOS LR(0)
+
+      I0:
+        E'' → • E
+        E   → • T E'
+        T   → • F T'
+        F   → • id
+        F   → • num
+        F   → • pari E pard
       
+      I1:
+        E'' → E •
+      
+      I2:
+        E  → T • E'
+        E' → • opsuma T E'
+        E' → •
+      
+      I3:
+        T  → F • T'
+        T' → • opmul F T'
+        T' → •
+      
+      I4:
+        F → id •
+      
+      I5:
+        F → num •
+      
+      I6:
+        F  → pari • E pard
+        E  → • T E'
+        T  → • F T'
+        F  → • id
+        F  → • num
+        F  → • pari E pard
+      
+      I7:
+        E → T E' •
+      
+      I8:
+        E' → opsuma • T E'
+        T  → • F T'
+        F  → • id
+        F  → • num
+        F  → • pari E pard
+      
+      I9:
+        T → F T' •
+      
+      I10:
+        T' → opmul • F T'
+        F  → • id
+        F  → • num
+        F  → • pari E pard
+      
+      I11:
+        F → pari E • pard
+      
+      I12:
+        F → pari E pard •
+      
+      TRANSICIONES 
+      
+      I0  --E-->    I1
+      I0  --T-->    I2
+      I0  --F-->    I3
+      I0  --id-->   I4
+      I0  --num-->  I5
+      I0  --pari--> I6
+      
+      I2  --E'-->     I7
+      I2  --opsuma--> I8
+      
+      I3  --T'-->    I9
+      I3  --opmul--> I10
+      
+      I6  --E-->    I11
+      I6  --T-->    I2   (reutilizado)
+      I6  --F-->    I3   (reutilizado)
+      I6  --id-->   I4   (reutilizado)
+      I6  --num-->  I5   (reutilizado)
+      I6  --pari--> I6   (recursivo)
+      
+      I8  --T-->    I2   (reutilizado)
+      I8  --F-->    I3   (reutilizado)
+      I8  --id-->   I4   (reutilizado)
+      I8  --num-->  I5   (reutilizado)
+      I8  --pari--> I6   (reutilizado)
+      
+      I10 --F-->    I3   (reutilizado)
+      I10 --id-->   I4   (reutilizado)
+      I10 --num-->  I5   (reutilizado)
+      I10 --pari--> I6   (reutilizado)
+      
+      I11 --pard--> I12
+
+
+      Creación de la Tabla
+      
+      Reglas para llenar la tabla
+      ACCION:
+
+      Si A → α • a β está en Iᵢ y IR_A(Iᵢ, a) = Iⱼ → ACCION[i, a] = sj (desplazar)
+      Si A → α • está en Iᵢ → para todo a ∈ FOLLOW(A), ACCION[i, a] = rN (reducir por producción N)
+      Si E'' → E • está en Iᵢ → ACCION[i, $] = acc (aceptar)
+      
+      IR_A:
+      
+      Si IR_A(Iᵢ, A) = Iⱼ donde A es no terminal → IR_A[i, A] = j
+
+
+      ## Tabla SLR — ACCION / IR_A
+
+| Estado | id | num | pari | pard | opsuma | opmul | $ | E | E' | T | T' | F |
+|--------|-----|-----|------|------|--------|-------|---|---|----|---|----|---|
+| 0  | s4 | s5 | s6 | —  | —  | —   | —   | 1  | —  | 2 | —  | 3  |
+| 1  | —  | —  | —  | —  | —  | —   | acc | —  | —  | — | —  | —  |
+| 2  | —  | —  | —  | r3 | s8 | —   | r3  | —  | 7  | — | —  | —  |
+| 3  | —  | —  | —  | r6 | r6 | s10 | r6  | —  | —  | — | 9  | —  |
+| 4  | —  | —  | —  | r7 | r7 | r7  | r7  | —  | —  | — | —  | —  |
+| 5  | —  | —  | —  | r8 | r8 | r8  | r8  | —  | —  | — | —  | —  |
+| 6  | s4 | s5 | s6 | —  | —  | —   | —   | 11 | —  | 2 | —  | 3  |
+| 7  | —  | —  | —  | r1 | —  | —   | r1  | —  | —  | — | —  | —  |
+| 8  | s4 | s5 | s6 | —  | —  | —   | —   | —  | —  | 2 | —  | 3  |
+| 9  | —  | —  | —  | r4 | r4 | —   | r4  | —  | —  | — | —  | —  |
+| 10 | s4 | s5 | s6 | —  | —  | —   | —   | —  | —  | — | —  | 3  |
+| 11 | —  | —  | —  | s12| —  | —   | —   | —  | —  | — | —  | —  |
+| 12 | —  | —  | —  | r9 | r9 | r9  | r9  | —  | —  | — | —  | —  |
+
+> **sN** = shift/desplazar al estado N &nbsp;|&nbsp; **rN** = reduce/reducir por producción N &nbsp;|&nbsp; **acc** = aceptar &nbsp;|&nbsp; **—** = error sintáctico
+>
+> Columnas **E, E', T, T', F** corresponden a la sección **IR_A**. Las demás a **ACCION**.
       
    
 5. Asociatividad y precedencia, realizando modificaciones a una gramática aritmética para hacer asociatividad por derecha, por izquierda, tener la precedencia de operadores definida matemáticamente y el orden inverso, realizar dos pruebas y comparar los resultados obtenidos con la misma cadena en cada una de las versiones de la gramática
