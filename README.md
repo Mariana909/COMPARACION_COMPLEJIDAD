@@ -33,6 +33,8 @@ Realizar la comparación del algoritmo CYK con complejidad O(n³) y un algoritmo
    Gramática Original ajustada para admitir repeticiones de la expresión completa, así es posible generar entradas lo suficientemente largas:
    S → A
 
+   S → A S
+
    A → a B C
 
    B → b bas
