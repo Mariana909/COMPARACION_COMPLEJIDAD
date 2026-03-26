@@ -31,7 +31,7 @@ Realizar la comparación del algoritmo CYK con complejidad O(n³) y un algoritmo
    Pasos para convertir una gramática libre de contexto a forma normal de chomsky
 
    Gramática Original ajustada para admitir repeticiones de la expresión completa, así es posible generar entradas lo suficientemente largas:
-   S → A
+   S → A 
 
    S → A S
 
@@ -50,30 +50,31 @@ Realizar la comparación del algoritmo CYK con complejidad O(n³) y un algoritmo
 
    Paso 2: Eliminar producciones nulas, unitarias e inútiles.
    C produce ε, por lo que esta regla se elimina y se modifican las reglas para que contenga o no el simbolo terminal c.
-   S → A
-
+   También se elimina la producción unitaria S → A 
+   S → a B C
+   S → a B
+   S → a B C S
+   S → a B S
    A → a B C
-
-   A → a B 
-
+   A → a B
    B → b bas
-
    B → big C boss
-
    B → big boss
-
    C → c
 
    Paso 3: Reemplazar terminales en producciones mixtas
 
-   S → A
-   A → A_a B C        (a → A_1)
+   S → A_a B C
+   S → A_a B
+   S → A_a B C S
+   S → A_a B S
+   A → A_a B C        
    A → A_a B
    A_a  → a
-   B → B_b B_bas      (b → B_b, bas → B_bas)
+   B → B_b B_bas      
    B_b  → b
    B_bas → bas
-   B → BIG C BOSS     (big → BIG, boss → BOSS)
+   B → BIG C BOSS     
    B → BIG BOSS
    BIG  → big
    BOSS → boss
@@ -82,15 +83,20 @@ Realizar la comparación del algoritmo CYK con complejidad O(n³) y un algoritmo
 
    Paso 4: Reduzca las producciones con más de dos no terminales.
    
-   S → A
-   A  → A_1 C         (antes A → A_a B C)
+   S  → A_1 C         
+   S  → A_a B         
+   S  → A_2 S         
+   S  → A_3 S        
+   A_2 → A_1 C        
+   A_3 → A_a B        
+   A  → A_1 C
    A_1 → A_a B
    A  → A_a B
    A_a → a
    B  → B_b B_bas
    B_b  → b
    B_bas → bas
-   B  → B_C BOSS       (antes B → BIG C BOSS)
+   B  → B_C BOSS
    B_C → BIG C
    B  → BIG BOSS
    BIG  → big
