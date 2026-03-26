@@ -248,7 +248,4 @@ Reglas para crear la tabla M
 
 > **—** = error sintáctico
       
-   
-5. Asociatividad y precedencia, realizando modificaciones a una gramática aritmética para hacer asociatividad por derecha, por izquierda, tener la precedencia de operadores definida matemáticamente y el orden inverso, realizar dos pruebas y comparar los resultados obtenidos con la misma cadena en cada una de las versiones de la gramática
-   En antlr se tendrán 4 gramáticas, cada una con la modificación necesaria para asociatividad por derecha, asociatividad por izquierda, precedencia usual de operaciones y precedencia inversa.
-   La gramática permite realizar operaciones como suma, resta, multiplicación y división entre números racionales. Admitiendo tanto enteros como números de punto flotante con signo. 
+ 
