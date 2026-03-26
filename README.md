@@ -102,4 +102,17 @@ Realizar la comparación del algoritmo CYK con complejidad O(n³) y un algoritmo
    BIG  → big
    BOSS → boss
    C  → c
-   
+
+
+
+  EJECUCIÓN COMPARACIÓN 
+
+  Imagen generada:
+
+  <img width="1270" height="818" alt="comparacion" src="https://github.com/user-attachments/assets/97c31808-c48d-48ac-918c-e67ec52feee8" />
+
+  Por terminal:
+
+  <img width="590" height="56" alt="image" src="https://github.com/user-attachments/assets/7e524d66-7883-4383-8ff5-7bb31aa7388f" />
+
+ 
