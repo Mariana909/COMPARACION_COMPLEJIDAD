@@ -30,7 +30,8 @@ Realizar la comparación del algoritmo CYK con complejidad O(n³) y un algoritmo
 
    Pasos para convertir una gramática libre de contexto a forma normal de chomsky
 
-   Gramática Original:
+   Gramática Original ajustada para admitir repeticiones de la expresión completa, así es posible generar entradas lo suficientemente largas:
+   S → A
 
    A → a B C
 
@@ -47,6 +48,7 @@ Realizar la comparación del algoritmo CYK con complejidad O(n³) y un algoritmo
 
    Paso 2: Eliminar producciones nulas, unitarias e inútiles.
    C produce ε, por lo que esta regla se elimina y se modifican las reglas para que contenga o no el simbolo terminal c.
+   S → A
 
    A → a B C
 
@@ -62,6 +64,7 @@ Realizar la comparación del algoritmo CYK con complejidad O(n³) y un algoritmo
 
    Paso 3: Reemplazar terminales en producciones mixtas
 
+   S → A
    A → A_a B C        (a → A_1)
    A → A_a B
    A_a  → a
@@ -76,7 +79,8 @@ Realizar la comparación del algoritmo CYK con complejidad O(n³) y un algoritmo
    
 
    Paso 4: Reduzca las producciones con más de dos no terminales.
-
+   
+   S → A
    A  → A_1 C         (antes A → A_a B C)
    A_1 → A_a B
    A  → A_a B
